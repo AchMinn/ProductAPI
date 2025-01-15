@@ -1,13 +1,12 @@
 package ma.universia.metier;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 import ma.universia.dao.ProductRepository;
 import ma.universia.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductMetierImplementation implements ProductMetier {
@@ -16,8 +15,11 @@ public class ProductMetierImplementation implements ProductMetier {
     private ProductRepository productRepository;
 
     @Override
-    public Product findByPriceAndName(BigDecimal price, String name){
-        List<Product> products = productRepository.findByPriceGreaterAndName(price, name);
+    public Product findByPriceAndName(BigDecimal price, String name) {
+        List<Product> products = productRepository.findByPriceGreaterAndName(
+            price,
+            name
+        );
         return products.isEmpty() ? null : products.get(0);
     }
 
@@ -36,7 +38,6 @@ public class ProductMetierImplementation implements ProductMetier {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-
 
     @Override
     public Product updateProduct(Long id, Product product) {
@@ -59,10 +60,12 @@ public class ProductMetierImplementation implements ProductMetier {
     }
 
     @Override
-    public List<Product> findByPriceBetween(BigDecimal price1, BigDecimal price2) {
+    public List<Product> findByPriceBetween(
+        BigDecimal price1,
+        BigDecimal price2
+    ) {
         return productRepository.findByPriceBetween(price1, price2);
     }
-
 
     @Override
     public List<Product> findByNameContaining(String name) {
